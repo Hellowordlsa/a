@@ -822,8 +822,7 @@ spawn(function()
 	    if not string.find(QuestTitle, QuestNeta()[5]) then replicated.Remotes.CommF_:InvokeServer("AbandonQuest")end
 	end
 	    if plr.PlayerGui.Main.Quest.Visible == false then
-  	      _tp(QuestNeta()[6])
-	      if (Root.Position - QuestNeta()[6].Position).Magnitude <= 5 then replicated.Remotes.CommF_:InvokeServer("StartQuest", QuestNeta()[3], QuestNeta()[2])end
+	      replicated.Remotes.CommF_:InvokeServer("StartQuest", QuestNeta()[3], QuestNeta()[2])
 	        end
 	    if plr.PlayerGui.Main.Quest.Visible == true then
 	      if workspace.Enemies:FindFirstChild(QuestNeta()[1]) then
