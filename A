@@ -7221,8 +7221,22 @@ function AttackNoCoolDown()
     while not localScript do
         playerScripts.ChildAdded:Wait()
         localScript = playerScripts:FindFirstChildOfClass("LocalScript")
-    end    
+    end
+    local hitFunction
+    if getsenv then
+        local success, scriptEnv = pcall(getsenv, localScript)
+        if success and scriptEnv then
+            hitFunction = scriptEnv._G.SendHitsToServer
+        end
+    end
+    local successFlags, combatRemoteThread = pcall(function()
+        return require(modules.Flags).COMBAT_REMOTE_THREAD or false
+    end)
+    if successFlags and combatRemoteThread and hitFunction then
+        hitFunction(mainTarget, targets)
+    elseif successFlags and not combatRemoteThread then
         hitEvent:FireServer(mainTarget, targets)
+    end
 end
 CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
 CameraShakerR:Stop()
