@@ -650,9 +650,7 @@ _tp = function(Tween_Pos)
         if Distance <= 250 then
             tweenTime = Distance / tonumber(250 * 1.8)
         end
-        if currentTween then
-            currentTween:Pause()
-        end
+        
         local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
         local tweenGoal = {CFrame = Tween_Pos}
         currentTween = TweenService:Create(block, tweenInfo, tweenGoal)
@@ -7221,22 +7219,8 @@ function AttackNoCoolDown()
     while not localScript do
         playerScripts.ChildAdded:Wait()
         localScript = playerScripts:FindFirstChildOfClass("LocalScript")
-    end
-    local hitFunction
-    if getsenv then
-        local success, scriptEnv = pcall(getsenv, localScript)
-        if success and scriptEnv then
-            hitFunction = scriptEnv._G.SendHitsToServer
-        end
-    end
-    local successFlags, combatRemoteThread = pcall(function()
-        return require(modules.Flags).COMBAT_REMOTE_THREAD or false
-    end)
-    if successFlags and combatRemoteThread and hitFunction then
-        hitFunction(mainTarget, targets)
-    elseif successFlags and not combatRemoteThread then
+    end    
         hitEvent:FireServer(mainTarget, targets)
-    end
 end
 CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
 CameraShakerR:Stop()
