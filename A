@@ -650,7 +650,9 @@ _tp = function(Tween_Pos)
         if Distance <= 250 then
             tweenTime = Distance / tonumber(250 * 1.8)
         end
-        
+        if currentTween then
+            currentTween:Pause()
+        end
         local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
         local tweenGoal = {CFrame = Tween_Pos}
         currentTween = TweenService:Create(block, tweenInfo, tweenGoal)
